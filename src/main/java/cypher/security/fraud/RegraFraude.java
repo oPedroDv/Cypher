@@ -1,4 +1,6 @@
 package cypher.security.fraud;
 
-public class RegraFraude {
+import cypher.security.model.Venda;
+
+public interface RegraFraude {
 }

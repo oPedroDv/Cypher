@@ -14,7 +14,7 @@ public class VendedorRepository {
 
     public void salvar(Vendedor vendedor) throws SQLException {
         String sql = """
-                INSERT INTO vendeedores (nome, idade, email, cpf, quantidade_vendas, departamento_id)]
+                INSERT INTO vendedores (nome, idade, email, cpf, quantidade_vendas, departamento_id)]
                 VALUES (?, ?, ?, ?, ?, ?)""";
 
         try(Connection conn = DatabaseConfig.conectar();

@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS produtos (
     tipo VARCHAR(100),
     modelo VARCHAR(100),
     cor VARCHAR(50),
-    marca VARCHAR(100),
+    fabricante VARCHAR(100),
     preco_mercado DECIMAL(10, 2) NOT NULL,
     categoria_id INTEGER NOT NULL,
     FOREIGN KEY (categoria_id) REFERENCES categorias(id) -- Garante que a categoria_id referencie os id's da tabela categoria (Chave estrangeira)
