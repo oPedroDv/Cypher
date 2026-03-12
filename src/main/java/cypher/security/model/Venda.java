@@ -1,65 +1,50 @@
 package cypher.security.model;
 
 public class Venda {
+
     private Long id;
-    private String produto;
-    private Double valor;
-    private Integer quantidade;
-    private String nomeVendedor;
-    private double preco;
-    private double precoMercado;
-    private String categoria;
+    private Double preco;
     private String dataVenda;
-    private int quantidadeVendasVendedor;
     private String nivelRisco;
+
+    private Produto produto;
+    private Vendedor vendedor;
 
     public Venda() {}
 
-    public Venda(Long id, String produto, Double valor, Integer quantidade, String nomeVendedor, Double preco, Double precoMercado, String categoria, String dataVenda, Integer quantidadeVendasVendedor, String nivelRisco ) {
+    public Venda(Long id, Double preco, String dataVenda,
+                 String nivelRisco, Produto produto, Vendedor vendedor) {
         this.id = id;
-        this.produto = produto;
-        this.valor = valor;
-        this.quantidade = quantidade;
-        this.nomeVendedor = nomeVendedor;
         this.preco = preco;
-        this.precoMercado = precoMercado;
-        this.categoria = categoria;
         this.dataVenda = dataVenda;
-        this.quantidadeVendasVendedor = quantidadeVendasVendedor;
         this.nivelRisco = nivelRisco;
+        this.produto = produto;
+        this.vendedor = vendedor;
     }
 
-    public Long getId() {return id;}
-    public void setId(Long id) {this.id = id;}
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public String getProduto() {return produto;}
-    public void setProduto(String produto) {this.produto = produto;}
+    public Double getPreco() { return preco; }
+    public void setPreco(Double preco) { this.preco = preco; }
 
-    public Double getValor() {return valor;}
-    public void setValor(Double valor) {this.valor = valor;}
+    public String getDataVenda() { return dataVenda; }
+    public void setDataVenda(String dataVenda) { this.dataVenda = dataVenda; }
 
-    public Integer getQuantidade() {return quantidade;}
-    public void setQuantidade(Integer quantidade) {this.quantidade = quantidade;}
+    public String getNivelRisco() { return nivelRisco; }
+    public void setNivelRisco(String nivelRisco) { this.nivelRisco = nivelRisco; }
 
-    public String getNomeVendedor() {return nomeVendedor;}
-    public void setNomeVendedor(String nomeVendedor) {this.nomeVendedor = nomeVendedor;}
+    public Produto getProduto() { return produto; }
+    public void setProduto(Produto produto) { this.produto = produto; }
 
-    public Double getPreco() {return preco;}
-    public void setPreco(Double preco) {this.preco = preco;}
+    public Vendedor getVendedor() { return vendedor; }
+    public void setVendedor(Vendedor vendedor) { this.vendedor = vendedor; }
 
-    public Double getPrecoMercado() {return precoMercado;}
-    public void setPrecoMercado(Double precoMercado) {this.precoMercado = precoMercado;}
-
-    public String getCategoria() {return categoria;}
-    public void setCategoria(String categoria) {this.categoria = categoria;}
-
-    public String getDataVenda() {return dataVenda;}
-    public void setDataVenda(String dataVenda) {this.dataVenda = dataVenda;}
-
-    public Integer getQuantidadeVendasVendedor() {return quantidadeVendasVendedor;}
-    public void setQuantidadeVendasVendedor(Integer quantidadeVendasVendedor) {this.quantidadeVendasVendedor = quantidadeVendasVendedor;}
-
-    public String getNivelRisco() {return nivelRisco;}
-    public void setNivelRisco(String nivelRisco) {this.nivelRisco = nivelRisco;}
-
+    @Override
+    public String toString() {
+        return "Venda{id=" + id + ", preco=" + preco +
+                ", nivelRisco='" + nivelRisco + "'" +
+                ", produto=" + produto +
+                ", vendedor=" + vendedor + "}";
+    }
 }
