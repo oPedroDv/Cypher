@@ -37,10 +37,19 @@ CREATE TABLE IF NOT EXISTS vendedores (
 CREATE TABLE IF NOT EXISTS vendas (
     id INTEGER PRIMARY KEY,
     preco DECIMAL(15, 2) NOT NULL,
-    data_venda VARCHAR(20) NOT NULL,
+    data_venda DATETIME NOT NULL,
     nivel_risco VARCHAR(10),  -- "Baoxo" | "Médio" | "Alto"
     produto_id INTEGER NOT NULL,
     vendedor_id INTEGER NOT NULL,
     FOREIGN KEY (produto_id) REFERENCES produtos(id),
+    FOREIGN KEY (vendedor_id) REFERENCES vendedores(id)
+);
+
+CREATE TABLE IF NOT EXISTS fraude (
+    id INTEGER PRIMARY KEY AUTOINCREMENT ,
+    venda_id INTEGER NOT NULL,
+    hora_deteccao DATETIME NOT NULL,
+    vendedor_id INTEGER NOT NULL,
+    FOREIGN KEY (venda_id) REFERENCES vendas(id),
     FOREIGN KEY (vendedor_id) REFERENCES vendedores(id)
 );

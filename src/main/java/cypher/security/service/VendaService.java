@@ -20,6 +20,4 @@ public class VendaService {
         this.vendedorRepository = vendedorRepository;
         this.motorFraude = motorFraude;
     }
-
-    public ResultadoAnalise salvarEAnalisar(VendaDTO dto) {}
 }

@@ -1,4 +1,4 @@
-package cypher.security.database;
+package cypher.security.config;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

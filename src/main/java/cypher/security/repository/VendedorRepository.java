@@ -1,6 +1,6 @@
 package cypher.security.repository;
 
-import cypher.security.database.DatabaseConfig;
+import cypher.security.config.DatabaseConfig;
 import cypher.security.model.Departamento;
 import cypher.security.model.Vendedor;
 

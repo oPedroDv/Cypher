@@ -1,5 +1,7 @@
 package cypher.security.model;
 
+import java.time.LocalDateTime;
+
 public class Produto {
 
     private Long id;
@@ -9,10 +11,11 @@ public class Produto {
     private String fabricante;
     private Double precoMercado;
     private Categoria categoria;
+    private LocalDateTime dataCadastro;
 
     public Produto() {}
 
-    public Produto(Long id, String nome, String modelo, String cor, String fabricante, Double precoMercado, Categoria categoria) {
+    public Produto(Long id, String nome, String modelo, String cor, String fabricante, Double precoMercado, Categoria categoria, Integer dataCadastro) {
         this.id = id;
         this.nome = nome;
         this.modelo = modelo;
@@ -20,6 +23,7 @@ public class Produto {
         this.fabricante = fabricante;
         this.precoMercado = precoMercado;
         this.categoria = categoria;
+        this.dataCadastro = LocalDateTime.now();
     }
 
     public Long getId() {return id;}
@@ -42,6 +46,9 @@ public class Produto {
 
     public Categoria getCategoria() {return categoria;}
     public void setCategoria(Categoria categoria) {this.categoria = categoria;}
+
+    public LocalDateTime getDataCadastro() {return dataCadastro;}
+    public void setDataCadastro(LocalDateTime dataCadastro) {this.dataCadastro = dataCadastro;}
 
     @Override
     public String toString() {
