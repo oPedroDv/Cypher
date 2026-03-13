@@ -26,6 +26,6 @@ public class RegraCadastramentoRapido implements RegraFraude {
 
     @Override
     public String getDescricao() {
-        return "Preço fora da faixa do mercado";
+        return "Vendedor suspeito: muitas vendas em pouco tempo";
     }
 }

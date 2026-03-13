@@ -13,7 +13,7 @@ public class ProdutoRepository {
 
     public void salvar(Produto produto) throws SQLException {
         String sql = """
-                INSERT INTO produtos = = (nome, modelo, cor, fabricante, preco_mercado, categoria_id)
+                INSERT INTO produtos = (nome, modelo, cor, fabricante, preco_mercado, categoria_id)
                 VALUES (?, ?, ?, ?, ?, ?)
                 """;
 

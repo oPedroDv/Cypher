@@ -13,7 +13,7 @@ public class MotorFraude {
         
         regras.add(new RegraPrecoSuspeito());
         regras.add(new RegraVendedorSuspeito());
-        regras.add(new RegraVendedorSuspeito());
+        regras.add(new RegraCadastramentoRapido());
 
     }
 
