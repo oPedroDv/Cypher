@@ -9,19 +9,19 @@ import java.util.List;
 
 public class DepartamentoRepository {
 
-    public void salvar (Departamento departamento) throws Exception{
+    public void salvar(Departamento departamento) throws Exception {
         String sql = "INSERT INTO departamentos (nome, andar) VALUES (?, ?)";
 
         try (Connection conn = DatabaseConfig.conectar();
-             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, departamento.getNome());
             stmt.setString(2, departamento.getAndar());
             stmt.executeUpdate();
 
-            ResultSet keys = stmt.getGeneratedKeys();
-            if (keys.next()) {
-                departamento.setId(keys.getLong(1));
+            ResultSet rs = conn.createStatement().executeQuery("SELECT last_insert_rowid()");
+            if (rs.next()) {
+                departamento.setId(rs.getLong(1));
             }
         }
     }

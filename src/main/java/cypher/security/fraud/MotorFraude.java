@@ -27,9 +27,7 @@ public class MotorFraude {
                 score++;
             }
         }
-
         String nivelRisco = score == 0 ? "BAIXO" : score == 1 ? "MEDIO" : "ALTO";
-
         return new ResultadoAnalise(venda, nivelRisco, score, motivos);
     }
 }

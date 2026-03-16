@@ -86,4 +86,7 @@ git clone https://github.com/seu-usuario/cypher.git
 cd cypher
 ```
 3. Abra no IntelliJ IDEA
+<<<<<<< HEAD
+4. O banco `vendas.db` será criado automaticamente ao rodar o projeto
+=======
 4. O banco `vendas.db` será criado automaticamente ao rodar o projeto

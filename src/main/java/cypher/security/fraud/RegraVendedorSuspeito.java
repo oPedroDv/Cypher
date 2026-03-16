@@ -17,6 +17,6 @@ public class RegraVendedorSuspeito implements RegraFraude {
 
     @Override
     public String getDescricao() {
-        return "Vendedor suspeito: poucas vendas com valor alto\"";
+        return "Vendedor suspeito: poucas vendas com valor alto";
     }
 }

@@ -8,25 +8,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoriaRepository {
-    public void salvar (Categoria categoria) throws SQLException{
+
+    public void salvar(Categoria categoria) throws SQLException {
         String sql = "INSERT INTO categorias (nome, descricao) VALUES (?, ?)";
 
-        try(Connection conn = DatabaseConfig. conectar();
-        PreparedStatement stmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)){
+        try (Connection conn = DatabaseConfig.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, categoria.getNome());
             stmt.setString(2, categoria.getDescricao());
             stmt.executeUpdate();
 
-            ResultSet keys = stmt.getGeneratedKeys();
-            if(keys.next()){
-                categoria.setId(keys.getLong(1));
+            ResultSet rs = conn.createStatement().executeQuery("SELECT last_insert_rowid()");
+            if (rs.next()) {
+                categoria.setId(rs.getLong(1));
             }
         }
     }
 
-    public Categoria buscarPorId(Long id) throws SQLException{
-        String sql = "SELECT * FROM produtos WHERE id = ?";
+    public Categoria buscarPorId(Long id) throws SQLException {
+        String sql = "SELECT * FROM categorias WHERE id = ?";
 
         try (Connection conn = DatabaseConfig.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -34,14 +35,14 @@ public class CategoriaRepository {
             stmt.setLong(1, id);
             ResultSet rs = stmt.executeQuery();
 
-            if(rs.next()) {
+            if (rs.next()) {
                 return mapear(rs);
             }
         } return null;
     }
 
     public List<Categoria> listar() throws SQLException {
-        List<Categoria> produtos = new ArrayList<>();
+        List<Categoria> categorias = new ArrayList<>();
         String sql = "SELECT * FROM categorias";
 
         try (Connection conn = DatabaseConfig.conectar();
@@ -49,23 +50,23 @@ public class CategoriaRepository {
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                produtos.add(mapear(rs));
+                categorias.add(mapear(rs));
             }
-        }return produtos;
+        } return categorias;
     }
 
     public void deletar(Long id) throws SQLException {
         String sql = "DELETE FROM categorias WHERE id = ?";
 
-        try(Connection conn = DatabaseConfig.conectar();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DatabaseConfig.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setLong(1, id);
             stmt.executeUpdate();
         }
     }
 
-    private  Categoria mapear(ResultSet rs) throws SQLException {
+    private Categoria mapear(ResultSet rs) throws SQLException {
         Categoria categ = new Categoria();
         categ.setId(rs.getLong("id"));
         categ.setNome(rs.getString("nome"));

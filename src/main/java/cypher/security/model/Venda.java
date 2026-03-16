@@ -1,5 +1,7 @@
 package cypher.security.model;
 
+import java.util.List;
+
 public class Venda {
 
     private Long id;
@@ -47,4 +49,6 @@ public class Venda {
                 ", produto=" + produto +
                 ", vendedor=" + vendedor + "}";
     }
+
+
 }

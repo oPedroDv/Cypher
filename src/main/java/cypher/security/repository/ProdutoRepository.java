@@ -13,12 +13,12 @@ public class ProdutoRepository {
 
     public void salvar(Produto produto) throws SQLException {
         String sql = """
-                INSERT INTO produtos = (nome, modelo, cor, fabricante, preco_mercado, categoria_id)
+                INSERT INTO produtos (nome, modelo, cor, fabricante, preco_mercado, categoria_id)
                 VALUES (?, ?, ?, ?, ?, ?)
                 """;
 
-        try(Connection conn = DatabaseConfig.conectar();
-            PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        try (Connection conn = DatabaseConfig.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, produto.getNome());
             stmt.setString(2, produto.getModelo());
@@ -26,17 +26,16 @@ public class ProdutoRepository {
             stmt.setString(4, produto.getFabricante());
             stmt.setDouble(5, produto.getPrecoMercado());
             stmt.setLong(6, produto.getCategoria().getId());
-
             stmt.executeUpdate();
 
-            ResultSet keys = stmt.getGeneratedKeys();
-            if (keys.next()) {
-                produto.setId(keys.getLong(1));
+            ResultSet rs = conn.createStatement().executeQuery("SELECT last_insert_rowid()");
+            if (rs.next()) {
+                produto.setId(rs.getLong(1));
             }
         }
     }
 
-    public Produto buscarPorId(Long id) throws SQLException{
+    public Produto buscarPorId(Long id) throws SQLException {
         String sql = "SELECT * FROM produtos WHERE id = ?";
 
         try (Connection conn = DatabaseConfig.conectar();
@@ -45,7 +44,7 @@ public class ProdutoRepository {
             stmt.setLong(1, id);
             ResultSet rs = stmt.executeQuery();
 
-            if(rs.next()) {
+            if (rs.next()) {
                 return mapear(rs);
             }
         } return null;
@@ -53,7 +52,7 @@ public class ProdutoRepository {
 
     public List<Produto> listar() throws SQLException {
         List<Produto> produtos = new ArrayList<>();
-        String sql = "SELECT * FROM departamentos";
+        String sql = "SELECT * FROM produtos";
 
         try (Connection conn = DatabaseConfig.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql);
@@ -62,14 +61,14 @@ public class ProdutoRepository {
             while (rs.next()) {
                 produtos.add(mapear(rs));
             }
-        }return produtos;
+        } return produtos;
     }
 
     public void deletar(Long id) throws SQLException {
         String sql = "DELETE FROM produtos WHERE id = ?";
 
-        try(Connection conn = DatabaseConfig.conectar();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DatabaseConfig.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setLong(1, id);
             stmt.executeUpdate();
@@ -85,10 +84,9 @@ public class ProdutoRepository {
         prod.setFabricante(rs.getString("fabricante"));
         prod.setPrecoMercado(rs.getDouble("preco_mercado"));
 
-        Categoria categoria = categoriaRepository.buscarPorId(rs.getLong("categoira_id"));
+        Categoria categoria = categoriaRepository.buscarPorId(rs.getLong("categoria_id"));
         prod.setCategoria(categoria);
 
         return prod;
     }
 }
-

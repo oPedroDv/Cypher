@@ -10,6 +10,7 @@ public class RegraCadastramentoRapido implements RegraFraude {
     @Override
     public boolean validar(Venda venda) {
         LocalDateTime dataCadastro = venda.getProduto().getDataCadastro();
+        if (dataCadastro == null) return false;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime dataVenda = LocalDateTime.parse(venda.getDataVenda(), formatter);
 
@@ -17,7 +18,6 @@ public class RegraCadastramentoRapido implements RegraFraude {
             return false;
         }
         long horasDesdeCadastro = ChronoUnit.HOURS.between(dataCadastro, dataVenda); // Uso da API java.time, serve para calcular a diferença exata em horas entre dois pontos
-
         if (horasDesdeCadastro < 24) {
             return  venda.getPreco() > 1000.0;
         }

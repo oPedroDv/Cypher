@@ -14,11 +14,12 @@ public class VendedorRepository {
 
     public void salvar(Vendedor vendedor) throws SQLException {
         String sql = """
-                INSERT INTO vendedores (nome, idade, email, cpf, quantidade_vendas, departamento_id)]
-                VALUES (?, ?, ?, ?, ?, ?)""";
+                INSERT INTO vendedores (nome, idade, email, cpf, quantidade_vendas, departamento_id)
+                VALUES (?, ?, ?, ?, ?, ?)
+                """;
 
-        try(Connection conn = DatabaseConfig.conectar();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DatabaseConfig.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, vendedor.getNome());
             stmt.setInt(2, vendedor.getIdade());
@@ -26,12 +27,11 @@ public class VendedorRepository {
             stmt.setString(4, vendedor.getCpf());
             stmt.setInt(5, vendedor.getQuantidadeVendas());
             stmt.setLong(6, vendedor.getDepartamento().getId());
-
             stmt.executeUpdate();
 
-            ResultSet keys = stmt.getGeneratedKeys();
-            if (keys.next()) {
-                vendedor.setId(keys.getLong(1));
+            ResultSet rs = conn.createStatement().executeQuery("SELECT last_insert_rowid()");
+            if (rs.next()) {
+                vendedor.setId(rs.getLong(1));
             }
         }
     }
@@ -40,7 +40,7 @@ public class VendedorRepository {
         String sql = "SELECT * FROM vendedores WHERE id = ?";
 
         try (Connection conn = DatabaseConfig.conectar();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setLong(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -48,9 +48,7 @@ public class VendedorRepository {
             if (rs.next()) {
                 return mapear(rs);
             }
-
-        }
-        return null;
+        } return null;
     }
 
     public List<Vendedor> listar() throws SQLException {
@@ -64,15 +62,14 @@ public class VendedorRepository {
             while (rs.next()) {
                 vendedores.add(mapear(rs));
             }
-        }
-        return vendedores;
+        } return vendedores;
     }
 
     public void deletar(Long id) throws SQLException {
         String sql = "DELETE FROM vendedores WHERE id = ?";
 
-        try(Connection conn = DatabaseConfig.conectar();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DatabaseConfig.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setLong(1, id);
             stmt.executeUpdate();
